@@ -7,4 +7,3 @@ const reactElement = {
     children: 'Click me to visit google'
 }
 const mainContainer = document.querySelector("#root")
-
