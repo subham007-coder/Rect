@@ -5,7 +5,7 @@ import './App.css'
 
 function App() {
 
-let [Counter, setCounter] = useState(5);
+  let [Counter, setCounter] = useState(5);
 
   const addValue = () => {
     setCounter(Counter + 1)
@@ -13,7 +13,7 @@ let [Counter, setCounter] = useState(5);
       setCounter(Counter)
     }
   }
-  
+
   const removeVal = () => {
     setCounter(Counter - 1)
     if (Counter == 0) {
