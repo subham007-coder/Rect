@@ -25,15 +25,23 @@ function App() {
 
   }, [length, numberAllowed, charAllowed, setPassword])
 
-  const copyPasswordToClipboard = useCallback(() => {
+  const copyPasswordToClipboard = useCallback((e) => {
+    let btn = e.target;
+    if (btn.className === "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0") {
+      btn.className = 'outline-none bg-red-700 text-white px-3 py-0.5 shrink-0';
+    } else{
+      btn.className = "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
+    }
+
     passwordRef.current?.select();
     passwordRef.current?.setSelectionRange(0, 999);
     window.navigator.clipboard.writeText(password)
   }, [password])
-
+ 
   useEffect(() => {
     passwordGenerator()
   }, [length, numberAllowed, charAllowed, passwordGenerator])
+
   return (
 
     <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500">
@@ -49,7 +57,7 @@ function App() {
         />
         <button
           onClick={copyPasswordToClipboard}
-          className='outline-none copy bg-blue-700 text-white px-3 py-0.5 shrink-0'
+          className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >Copy</button>
 
       </div>
