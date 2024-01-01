@@ -29,7 +29,7 @@ function App() {
     let btn = e.target;
     if (btn.className === "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0") {
       btn.className = 'outline-none bg-red-700 text-white px-3 py-0.5 shrink-0';
-    } else{
+    } else {
       btn.className = "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
     }
 
@@ -37,7 +37,7 @@ function App() {
     passwordRef.current?.setSelectionRange(0, 999);
     window.navigator.clipboard.writeText(password)
   }, [password])
- 
+
   useEffect(() => {
     passwordGenerator()
   }, [length, numberAllowed, charAllowed, passwordGenerator])
