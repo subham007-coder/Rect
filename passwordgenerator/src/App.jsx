@@ -1,10 +1,13 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 function App() {
   const [length, setLength] = useState(8);
   const [numberVal, setNumber] = useState(false);
   const [carecterVal, setCarecter] = useState(false);
   const [password, setPassword] = useState("");
+
+  // useref hook
+  const passwordRef = useRef(null);
 
   const passwordGen = useCallback(() => {
     let pass = "";
@@ -15,11 +18,20 @@ function App() {
 
     for (let i = 1; i <= length; i++) {
       let char = Math.floor(Math.random() * str.length + 1);
-      pass = str.charAt(char);
-
+      pass += str.charAt(char);
       setPassword(pass);
     }
   }, [length, numberVal, carecterVal, setPassword]);
+
+  let copyPass = useCallback(() => {
+    passwordRef.current?.select();
+    window.navigator.clipboard.writeText(password);
+
+    document.querySelector(".clickEfect").classList =
+      "clickEfect outline-none bg-slate-950 py-2 px-3";
+
+    document.querySelector("i").classList = "fa-solid fa-copy";
+  }, [password]);
 
   useEffect(() => {
     passwordGen();
@@ -27,7 +39,7 @@ function App() {
 
   return (
     <>
-      <div className="w-full max-w-md  mx-auto shadow-md px-4 py-3 my-8 bg-gray-600 rounded-lg text-orange-600">
+      <div className="w-full max-w-md  mx-auto shadow-md px-4 py-3 my-8 bg-gray-600 rounded-lg text-green-600">
         <h1 className="text-white text-center my-3">Password Generator</h1>
         <div className="flex shadow rounded-lg overflow-hidden mb-4">
           <input
@@ -36,8 +48,14 @@ function App() {
             className="outline-none w-full py-1 px-3"
             placeholder="password"
             readOnly
+            ref={passwordRef}
           />
-          <button className="outline-none bg-blue-500 py-2 px-3">Copy</button>
+          <button
+            onClick={copyPass}
+            className="clickEfect outline-none bg-slate-800 py-2 px-3"
+          >
+            <i class="fa-regular fa-copy"></i>
+          </button>
         </div>
         <div className="flex text-sm gap-x-2">
           <div className="flex items-center gap-x-1">
